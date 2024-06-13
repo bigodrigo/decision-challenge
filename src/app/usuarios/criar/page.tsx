@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'
-import { Alert, Button, Container, TextField, FormControl, InputLabel, Input, InputAdornment, IconButton } from '@mui/material';
+import { Alert, Button, Container, FormControl, InputLabel, Input, InputAdornment, IconButton } from '@mui/material';
 import { Form, Field } from 'react-final-form';
 import * as yup from 'yup';
 import { createUser } from '@/server/actions';
@@ -73,7 +73,7 @@ export default function CriarUsuario() {
 
   return (
     <main className="flex flex-col items-center justify-start py-4 px-4 text-pri">
-      <h1 className='text-lg mb-2 md:text-3xl'>Novo Usuário</h1>
+      <h1 className='text-lg mb-2 md:text-3xl text-sec'>Novo Usuário</h1>
       <Container className="flex flex-col items-center justify-center md:min-w-80">
         <Form
           onSubmit={onSubmit}
