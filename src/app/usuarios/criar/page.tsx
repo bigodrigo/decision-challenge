@@ -3,30 +3,9 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'
 import { Alert, Button, Container, FormControl, InputLabel, Input, InputAdornment, IconButton } from '@mui/material';
 import { Form, Field } from 'react-final-form';
-import * as yup from 'yup';
 import { createUser } from '@/server/actions';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-
-// Schema de validação com Yup
-const validationSchema = yup.object().shape({
-  nome: yup.string().min(10, 'Nome deve ter no mínimo 10 caracteres').max(100, 'Nome deve ter no máximo 100 caracteres').required('Nome é obrigatório'),
-  senha: yup.string().min(10, 'Senha deve ter no mínimo 10 caracteres').max(30, 'Senha deve ter no máximo 30 caracteres').required('Senha é obrigatória'),
-  dataNascimento: yup.date().max(new Date(), 'Data de nascimento não pode ser superior a hoje').required('Data de nascimento é obrigatória'),
-  nomeMae: yup.string().min(10, 'Nome da mãe deve ter no mínimo 10 caracteres').max(100, 'Nome da mãe deve ter no máximo 100 caracteres').required('Nome da mãe é obrigatório'),
-});
-
-// Função de validação usando o schema do Yup
-const validate = values => {
-  try {
-    validationSchema.validateSync(values, { abortEarly: false });
-    return {};
-  } catch (error) {
-    return error.inner.reduce((errors, err) => {
-      errors[err.path] = err.message;
-      return errors;
-    }, {});
-  }
-};
+import { validate } from '@/lib/validationSchema';
 
 export default function CriarUsuario() {
   const router = useRouter();

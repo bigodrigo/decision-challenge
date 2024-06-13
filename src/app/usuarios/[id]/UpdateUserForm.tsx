@@ -5,6 +5,7 @@ import { Alert, Button, Container, TextField, FormControl, InputLabel, Input, In
 import { Form, Field } from 'react-final-form';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { updateUser } from '@/server/actions';
+import { validate } from '@/lib/validationSchema';
 
 export default function UpdateUserForm({ user }) {
     const router = useRouter();
@@ -53,24 +54,25 @@ export default function UpdateUserForm({ user }) {
                     dataNascimento: user.dataNascimento.toISOString().split('T')[0],
                     nomeMae: user.nomeMae,
                 }}
+                validate={validate}
                 render={({ handleSubmit }) => (
-                    <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4 min-w-[300px]">
+                    <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
                         <Field name="nome">
                             {({ input, meta }) => (
-                                <TextField
-                                    {...input}
-                                    label="Nome"
-                                    variant="standard"
-                                    error={meta.touched && meta.error}
-                                    helperText={meta.touched && meta.error}
-                                    fullWidth
-                                    style={{ minWidth: '300px' }}
+                            <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
+                                <InputLabel htmlFor='standard-name'>Nome</InputLabel>
+                                <Input
+                                {...input}
+                                id="standard-name"
+                                type='text'
                                 />
+                                {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
+                            </FormControl>
                             )}
                         </Field>
                         <Field name="senha">
                             {({ input, meta }) => (
-                                <FormControl variant="standard" fullWidth style={{ minWidth: '300px' }}>
+                                <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
                                     <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
                                     <Input
                                         {...input}
@@ -87,34 +89,34 @@ export default function UpdateUserForm({ user }) {
                                             </InputAdornment>
                                         }
                                     />
-                                    {meta.touched && meta.error && <span className='text-sec'>{meta.error}</span>}
+                                    {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
                                 </FormControl>
                             )}
                         </Field>
                         <Field name="dataNascimento">
                             {({ input, meta }) => (
-                                <FormControl variant="standard" fullWidth style={{ minWidth: '300px' }} error={meta.touched && meta.error}>
+                                <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
                                     <InputLabel htmlFor="standard-date" shrink>Data de Nascimento</InputLabel>
                                     <Input
                                         {...input}
                                         id="standard-date"
                                         type="date"
                                     />
-                                    {meta.touched && meta.error && <span className='text-sec'>{meta.error}</span>}
+                                    {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
                                 </FormControl>
                             )}
                         </Field>
                         <Field name="nomeMae">
                             {({ input, meta }) => (
-                                <TextField
-                                    {...input}
-                                    label="Nome da Mãe"
-                                    variant="standard"
-                                    error={meta.touched && meta.error}
-                                    helperText={meta.touched && meta.error}
-                                    fullWidth
-                                    style={{ minWidth: '300px' }}
-                                />
+                            <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
+                            <InputLabel htmlFor='standard-mother-name'>Nome da Mãe</InputLabel>
+                            <Input
+                                {...input}
+                                id="standard-mother-name"
+                                type='text'
+                            />
+                            {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
+                            </FormControl>
                             )}
                         </Field>
                         <Button variant="contained" className="bg-pri w-full" type="submit">
