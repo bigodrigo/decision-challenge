@@ -10,7 +10,7 @@ export default async function Usuarios() {
             <ul className='border-t border-b border-black py-4'>
                 {user.map((user) => (
                     <li key={user.id} className='flex items-center justify-between px-5'>
-                        <Link href={`usuario/${user.id}`}>
+                        <Link href={`usuarios/${user.id}`}>
                             <p className='text-pri'>{user.nome}</p>
                         </Link>
                     </li>

@@ -1,8 +1,9 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation'
+import { Alert, Button, Container, TextField } from '@mui/material';
 import { Form, Field } from 'react-final-form';
 import * as yup from 'yup';
-import { Button, Container, TextField } from '@mui/material';
 import { createUser } from '@/server/actions';
 
 // Schema de validação com Yup
@@ -27,20 +28,38 @@ const validate = values => {
 };
 
 export default function CriarUsuario() {
-  const onSubmit = async (formData) => {
-    const response = await fetch('/api/criarUsuario', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+  const router = useRouter();
+  const [alert, setAlert] = useState({ severity: '', message: '', open: false });
+  
+  const onSubmit = async (values) => {
+    // Rota clássica de api/POST
+    // const response = await fetch('/api/usuarios', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(formData),
+    // });
 
-    if (response.ok) {
-      alert('Usuário criado com sucesso!');
-    } else {
-      const errorData = await response.json();
-      alert(`Erro ao criar usuário: ${errorData.error}`);
+    const formData = new FormData();
+    formData.append('nome', values.nome);
+    formData.append('senha', values.senha);
+    formData.append('dataNascimento', values.dataNascimento);
+    formData.append('nomeMae', values.nomeMae);
+
+    try {
+      const result = await createUser(formData);
+
+      if (result) {
+        setAlert({ severity: 'success', message: 'Usuário criado com sucesso!', open: true });
+        setTimeout(() => {
+          router.push(`./${result}`);
+        }, 3000); // Adiciona um atraso de 3 segundos antes do redirecionamento
+      } else {
+        setAlert({ severity: 'error', message: `Erro ao criar usuário (sem ID)`, open: true });
+      }
+    } catch (error) {
+      setAlert({ severity: 'error', message: `Erro ao criar usuário (catch)`, open: true });
     }
   };
 
@@ -52,8 +71,8 @@ export default function CriarUsuario() {
           onSubmit={onSubmit}
           validate={validate}
           render={({ handleSubmit }) => (
-            <form //onSubmit={handleSubmit} 
-              action={createUser}
+            <form onSubmit={handleSubmit} 
+              // action={createUser}
               className="flex flex-col items-center gap-4">
               <Field name="nome">
                 {({ input, meta }) => (
@@ -111,6 +130,7 @@ export default function CriarUsuario() {
               <Button variant="contained" className="bg-pri w-full" type="submit">
                 Criar Usuário
               </Button>
+              {alert.open && <Alert severity={alert.severity} onClose={() => setAlert({ ...alert, open: false })}>{alert.message}</Alert>}
             </form>
           )}
         />
