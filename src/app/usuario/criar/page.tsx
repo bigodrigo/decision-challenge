@@ -108,7 +108,7 @@ export default function CriarUsuario() {
                   />
                 )}
               </Field>
-              <Button variant="contained" color="primary" type="submit">
+              <Button variant="contained" className="bg-pri w-full" type="submit">
                 Criar Usuário
               </Button>
             </form>
