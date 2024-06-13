@@ -13,7 +13,8 @@ const config: Config = {
       'ter': '#707070',
       'qua': '#7A7A7A',
       'white': '#fff',
-      'black': '#000'
+      'black': '#000',
+      'error': '#d32f2f',
     },
     extend: {
       backgroundImage: {

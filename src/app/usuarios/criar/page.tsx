@@ -1,10 +1,11 @@
 "use client"
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'
-import { Alert, Button, Container, TextField } from '@mui/material';
+import { Alert, Button, Container, TextField, FormControl, InputLabel, Input, InputAdornment, IconButton } from '@mui/material';
 import { Form, Field } from 'react-final-form';
 import * as yup from 'yup';
 import { createUser } from '@/server/actions';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 // Schema de validação com Yup
 const validationSchema = yup.object().shape({
@@ -30,6 +31,13 @@ const validate = values => {
 export default function CriarUsuario() {
   const router = useRouter();
   const [alert, setAlert] = useState({ severity: '', message: '', open: false });
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
   
   const onSubmit = async (values) => {
     // Rota clássica de api/POST
@@ -54,7 +62,7 @@ export default function CriarUsuario() {
         setAlert({ severity: 'success', message: 'Usuário criado com sucesso!', open: true });
         setTimeout(() => {
           router.push(`./${result}`);
-        }, 3000); // Adiciona um atraso de 3 segundos antes do redirecionamento
+        }, 2500); // Adiciona um atraso de 2,5 segundos antes do redirecionamento
       } else {
         setAlert({ severity: 'error', message: `Erro ao criar usuário (sem ID)`, open: true });
       }
@@ -66,7 +74,7 @@ export default function CriarUsuario() {
   return (
     <main className="flex flex-col items-center justify-start py-4 px-4 text-pri">
       <h1 className='text-lg mb-2 md:text-3xl'>Novo Usuário</h1>
-      <Container className="flex flex-col items-center justify-center ">
+      <Container className="flex flex-col items-center justify-center md:min-w-80">
         <Form
           onSubmit={onSubmit}
           validate={validate}
@@ -76,55 +84,66 @@ export default function CriarUsuario() {
               className="flex flex-col items-center gap-4">
               <Field name="nome">
                 {({ input, meta }) => (
-                  <TextField
-                    {...input}
-                    label="Nome"
-                    variant="outlined"
-                    error={meta.touched && meta.error}
-                    helperText={meta.touched && meta.error}
-                    fullWidth
-                  />
+                  <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
+                    <InputLabel htmlFor='standard-name'>Nome</InputLabel>
+                    <Input
+                      {...input}
+                      id="standard-name"
+                      type='text'
+                    />
+                    {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
+                  </FormControl>
                 )}
               </Field>
               <Field name="senha">
                 {({ input, meta }) => (
-                  <TextField
-                    {...input}
-                    label="Senha"
-                    type="password"
-                    variant="outlined"
-                    error={meta.touched && meta.error}
-                    helperText={meta.touched && meta.error}
-                    fullWidth
-                  />
+                  <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
+                    <InputLabel htmlFor="standard-adornment-password">Senha</InputLabel>
+                    <Input
+                      {...input}
+                      id="standard-adornment-password"
+                      type={showPassword ? 'text' : 'password'}
+                      error={meta.touched && meta.error}
+                      endAdornment={
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      }
+                    />
+                    {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
+                  </FormControl>
                 )}
               </Field>
               <Field name="dataNascimento">
                 {({ input, meta }) => (
-                  <TextField
-                    {...input}
-                    label="Data de Nascimento"
-                    type="date"
-                    variant="outlined"
-                    error={meta.touched && meta.error}
-                    helperText={meta.touched && meta.error}
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
-                    fullWidth
-                  />
+                  <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
+                    <InputLabel htmlFor="standard-date" shrink>Data de Nascimento</InputLabel>
+                    <Input
+                      {...input}
+                      id="standard-date"
+                      type="date"
+                    />
+                    {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
+                  </FormControl>
                 )}
               </Field>
               <Field name="nomeMae">
                 {({ input, meta }) => (
-                  <TextField
+                  <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
+                  <InputLabel htmlFor='standard-mother-name'>Nome da Mãe</InputLabel>
+                  <Input
                     {...input}
-                    label="Nome da Mãe"
-                    variant="outlined"
-                    error={meta.touched && meta.error}
-                    helperText={meta.touched && meta.error}
-                    fullWidth
+                    id="standard-mother-name"
+                    type='text'
                   />
+                  {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
+                </FormControl>
                 )}
               </Field>
               <Button variant="contained" className="bg-pri w-full" type="submit">
