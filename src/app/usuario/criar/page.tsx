@@ -45,7 +45,7 @@ export default function CriarUsuario() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-white text-pri">
+    <main className="flex flex-col items-center justify-start py-4 px-4 text-pri">
       <h1 className='text-lg mb-2 md:text-3xl'>Novo Usuário</h1>
       <Container className="flex flex-col items-center justify-center ">
         <Form
