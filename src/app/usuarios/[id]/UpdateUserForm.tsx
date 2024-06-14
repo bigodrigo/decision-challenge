@@ -119,7 +119,7 @@ export default function UpdateUserForm({ user }) {
                             </FormControl>
                             )}
                         </Field>
-                        <Button variant="contained" className="bg-pri w-full" type="submit">
+                        <Button variant="contained" className="bg-pri w-full hover:shadow-lg hover:bg-pri hover:shadow-pri hover:animate-pulse hover:scale-110" type="submit">
                             Atualizar Usuário
                         </Button>
                         {alert.open && <Alert severity={alert.severity} onClose={() => setAlert({ ...alert, open: false })}>{alert.message}</Alert>}
