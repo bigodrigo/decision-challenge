@@ -7,6 +7,7 @@ import { createUser } from '@/server/actions';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { validate } from '@/lib/validationSchema';
 import { UserFormValues } from '@/lib/interfaces';
+import { hashPassword } from '@/lib/encryptPassword';
 
 
 export default function CriarUsuario() {
@@ -30,9 +31,11 @@ export default function CriarUsuario() {
     //   body: JSON.stringify(formData),
     // });
 
+    const hashedPassword = await hashPassword(values.senha); // Criptografa a senha
+
     const formData = new FormData();
     formData.append('nome', values.nome);
-    formData.append('senha', values.senha);
+    formData.append('senha', hashedPassword); // Usa a senha criptografada
     formData.append('dataNascimento', new Date(values.dataNascimento).toISOString());
     formData.append('nomeMae', values.nomeMae);
 
