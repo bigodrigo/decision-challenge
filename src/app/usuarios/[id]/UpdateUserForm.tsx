@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Alert, Button, Container, TextField, FormControl, InputLabel, Input, InputAdornment, IconButton } from '@mui/material';
 import { Form, Field } from 'react-final-form';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { updateUser } from '@/server/actions';
+import { VisibilityOff } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { updateUser, deleteUser } from '@/server/actions';
 import { validate } from '@/lib/validationSchema';
 
 export default function UpdateUserForm({ user }) {
@@ -43,6 +44,23 @@ export default function UpdateUserForm({ user }) {
             setAlert({ severity: 'error', message: `Erro ao atualizar usuário (catch)`, open: true });
         }
     };
+
+    const deleteFunction = async (user) => {
+        try {
+            const result = await deleteUser(user.id);
+
+            if (result) {
+                setAlert({ severity: 'error', message: 'Usuário deletado com sucesso!', open: true });
+                setTimeout(() => {
+                    router.push('/usuarios/');
+                }, 2500);
+            } else {
+                setAlert({ severity: 'error', message: `Erro ao deletar usuário (sem tratamento)`, open: true });
+            }
+        } catch (error) {
+            setAlert({ severity: 'error', message: `Erro ao deletar usuário (catch)`, open: true });
+        }
+    }
 
     return (
         <Container className="flex flex-col items-center justify-center min-w-[300px]">
@@ -126,6 +144,14 @@ export default function UpdateUserForm({ user }) {
                     </form>
                 )}
             />
+            <Button 
+                variant="outlined" 
+                startIcon={<DeleteIcon />}
+                onClick={() => {deleteFunction(user)}} 
+                className="bg-error w-full mt-4 text-white border-0 hover:border-0 hover:shadow-lg hover:bg-error hover:shadow-error hover:animate-pulse hover:scale-110"
+            >
+                Delete
+            </Button>
         </Container>
     );
 }

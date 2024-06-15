@@ -55,3 +55,20 @@ export async function updateUser(formData: FormData) {
         throw new Error('Erro ao atualizar usuário');
     }
 }
+
+export async function deleteUser(id: number) {
+    try {
+        console.log("Deletando:", id);
+
+        const deletedUser = await prisma.user.delete({
+            where: { id: id },
+        });
+
+        revalidatePath('/usuarios');
+
+        return deletedUser.id;
+    } catch (error) {
+        console.error("Erro ao deletar usuário:", error);
+        throw new Error('Erro ao deletar usuário');
+    }
+}
