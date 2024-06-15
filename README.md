@@ -43,9 +43,16 @@ Desenvolver um sistema de cadastro de usuários com frontend obrigatório e back
 
 ### 🚀 Tecnologias
 
-//Tecnologias, React, Next, Tailwind, Prisma, yup, final form, MUI, Typescript
+//Tecnologias yup, final form, MUI,
+- [Typescript](https://www.typescriptlang.org)
+- [React](https://react.dev)
 - [Next.js](https://nextjs.org/docs)
-- [PostgreSQL](https://www.postgresql.org)
+- [Tailwind](https://tailwindcss.com)
+- [Prisma](https://www.prisma.io)
+- [Material UI](https://mui.com)
+- [Yup](https://www.npmjs.com/package/yup)
+- [Final Form](https://final-form.org)
+
 
 ### Sobre
 
@@ -142,7 +149,10 @@ return new Promise((_, reject) => {
 ### :muscle: Melhorias:
 
 - [ ] Adicionar um Modal ou Popup que peça a confirmação na hora de deletar um usuário;
+- [ ] Docker;
+- [ ] Vercel;
 - [ ] Criar um Script que verifica se a data de nascimento corresponde a um adulto (>18anos);
+- [ ] Separar as funções de Edição e Deletar -> Principios de SOLID;
 
 ## Autor
 
