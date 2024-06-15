@@ -1,18 +1,19 @@
 "use client"
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation'
-import { Alert, Button, Container, FormControl, InputLabel, Input, InputAdornment, IconButton } from '@mui/material';
+import { Alert, Button, Container, FormControl, InputLabel, Input, InputAdornment, IconButton, AlertColor } from '@mui/material';
 import { Form, Field } from 'react-final-form';
 import { createUser } from '@/server/actions';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { validate } from '@/lib/validationSchema';
-import { UserFormValues } from '@/lib/interfaces';
+import { UserFormValues, AlertState } from '@/lib/interfaces'; 
 import { hashPassword } from '@/lib/encryptPassword';
 
 
 export default function CriarUsuario() {
   const router = useRouter();
-  const [alert, setAlert] = useState({ severity: '', message: '', open: false });
+  const [alert, setAlert] = useState<AlertState>({ severity: 'success', message: '', open: false });
+
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -133,7 +134,11 @@ export default function CriarUsuario() {
               <Button variant="contained" className="bg-pri w-full hover:shadow-lg hover:bg-pri hover:shadow-pri hover:animate-pulse hover:scale-110" type="submit">
                 Criar Usuário
               </Button>
-              {alert.open && <Alert severity={alert.severity} onClose={() => setAlert({ ...alert, open: false })}>{alert.message}</Alert>}
+              {alert.open && (
+                <Alert severity={alert.severity} onClose={() => setAlert({ ...alert, open: false })}>
+                  {alert.message}
+                </Alert>
+              )}
             </form>
           )}
         />

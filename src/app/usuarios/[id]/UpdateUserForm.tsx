@@ -7,7 +7,7 @@ import { VisibilityOff } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { updateUser, deleteUser } from '@/server/actions';
 import { validate } from '@/lib/validationSchema';
-import { User, UserFormValues } from '@/lib/interfaces';
+import { User, UserFormValues, AlertState } from '@/lib/interfaces';
 
 interface UpdateUserFormProps {
   user: User;
@@ -15,7 +15,7 @@ interface UpdateUserFormProps {
 
 export default function UpdateUserForm({ user }: UpdateUserFormProps) {
     const router = useRouter();
-    const [alert, setAlert] = useState({ severity: '', message: '', open: false });
+    const [alert, setAlert] = useState<AlertState>({ severity: 'success', message: '', open: false });
 
     const onSubmit = async (values: UserFormValues) => {
         // Rota Clássica
@@ -143,7 +143,11 @@ export default function UpdateUserForm({ user }: UpdateUserFormProps) {
                         <Button variant="contained" className="bg-pri w-full hover:shadow-lg hover:bg-pri hover:shadow-pri hover:animate-pulse hover:scale-110" type="submit">
                             Atualizar Usuário
                         </Button>
-                        {alert.open && <Alert severity={alert.severity} onClose={() => setAlert({ ...alert, open: false })}>{alert.message}</Alert>}
+                        {alert.open && (
+                            <Alert severity={alert.severity} onClose={() => setAlert({ ...alert, open: false })}>
+                            {alert.message}
+                            </Alert>
+                        )}
                     </form>
                 )}
             />

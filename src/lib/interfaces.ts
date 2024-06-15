@@ -13,3 +13,11 @@ export interface UserFormValues {
     dataNascimento: Date | string;
     nomeMae: string;
 }
+
+import { AlertColor } from '@mui/material';
+
+export interface AlertState {
+    severity: AlertColor;
+    message: string;
+    open: boolean;
+}
