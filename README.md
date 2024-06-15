@@ -36,7 +36,7 @@ Desenvolver um sistema de cadastro de usuários com frontend obrigatório e back
 
 - Site da empresa: [Decision Systems](https://decisionsystems.com.br)
 - Solução: [GitHub Repo](https://github.com/bigodrigo/decision-challenge)
-// Vercel
+- Deploy: [Vercel](https://decision-challenge.vercel.app)
 
 
 ## Meu Processo
@@ -51,7 +51,6 @@ Desenvolver um sistema de cadastro de usuários com frontend obrigatório e back
 - [Material UI](https://mui.com)
 - [Yup](https://www.npmjs.com/package/yup)
 - [Final Form](https://final-form.org)
-
 
 ### Sobre
 
@@ -161,9 +160,3 @@ return new Promise((_, reject) => {
 - GitHub - [bigodrigo](https://github.com/bigodrigo)
 - Linkedin - [rodrigo-boquer](https://www.linkedin.com/in/rodrigo-boquer/)
 
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
