@@ -64,7 +64,7 @@ export default function CriarUsuario() {
           validate={validate}
           render={({ handleSubmit }) => (
             <form onSubmit={handleSubmit} 
-              // action={createUser}
+              // action={createUser} -> Utiliza as Server Actions do Next
               className="flex flex-col items-center gap-4">
               <Field name="nome">
                 {({ input, meta }) => (

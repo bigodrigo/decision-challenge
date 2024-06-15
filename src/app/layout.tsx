@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Decision Challenge",
-  description: "Desafio Dev Jr",
+  description: "Desafio CRUD Dev Jr",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
                 src="/logo_decision.png"
                 alt="Decision Logo"
                 width={240}
-                height={100}
+                height={82}
                 priority
                 className="my-4"
               />

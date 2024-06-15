@@ -5,14 +5,12 @@ import { revalidatePath } from "next/cache";
 import { UserFormValues } from "@/lib/interfaces";
 
 export async function createUser(formData: FormData) {
-    // importante -> Verificar se a validação é a forma correta!
     try {
         // Simulando um erro para fins de teste
         // return new Promise((_, reject) => {
         //     setTimeout(() => reject(new Error('Erro simulado ao criar usuário')), 500);
         // });
         
-        // Criação do usuário no banco de dados
         const data: UserFormValues = {
             nome: formData.get("nome") as string,
             senha: formData.get("senha") as string,
