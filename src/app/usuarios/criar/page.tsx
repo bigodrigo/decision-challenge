@@ -6,6 +6,8 @@ import { Form, Field } from 'react-final-form';
 import { createUser } from '@/server/actions';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { validate } from '@/lib/validationSchema';
+import { UserFormValues } from '@/lib/interfaces';
+
 
 export default function CriarUsuario() {
   const router = useRouter();
@@ -18,7 +20,7 @@ export default function CriarUsuario() {
     event.preventDefault();
   };
   
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: UserFormValues) => {
     // Rota clássica de api/POST
     // const response = await fetch('/api/usuarios', {
     //   method: 'POST',
@@ -31,7 +33,7 @@ export default function CriarUsuario() {
     const formData = new FormData();
     formData.append('nome', values.nome);
     formData.append('senha', values.senha);
-    formData.append('dataNascimento', values.dataNascimento);
+    formData.append('dataNascimento', new Date(values.dataNascimento).toISOString());
     formData.append('nomeMae', values.nomeMae);
 
     try {

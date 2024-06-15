@@ -7,12 +7,17 @@ import { VisibilityOff } from '@mui/icons-material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { updateUser, deleteUser } from '@/server/actions';
 import { validate } from '@/lib/validationSchema';
+import { User, UserFormValues } from '@/lib/interfaces';
 
-export default function UpdateUserForm({ user }) {
+interface UpdateUserFormProps {
+  user: User;
+}
+
+export default function UpdateUserForm({ user }: UpdateUserFormProps) {
     const router = useRouter();
     const [alert, setAlert] = useState({ severity: '', message: '', open: false });
 
-    const onSubmit = async (values) => {
+    const onSubmit = async (values: UserFormValues) => {
         // Rota Clássica
         // const response = await fetch(`/api/updateUser`, {
         //     method: 'POST',
@@ -23,20 +28,17 @@ export default function UpdateUserForm({ user }) {
         // });
 
         const formData = new FormData();
-        formData.append('id', user.id.toString()); // Adiciona o ID ao formData
+        formData.append('id', user.id.toString());
         formData.append('nome', values.nome);
         formData.append('senha', values.senha);
-        formData.append('dataNascimento', values.dataNascimento);
+        formData.append('dataNascimento', new Date(values.dataNascimento).toISOString());
         formData.append('nomeMae', values.nomeMae);
-
+    
         try {
             const result = await updateUser(formData);
-
+    
             if (result) {
                 setAlert({ severity: 'success', message: 'Usuário atualizado com sucesso!', open: true });
-                setTimeout(() => {
-                    router.push(`/usuarios/${result}`);
-                }, 2500);
             } else {
                 setAlert({ severity: 'error', message: `Erro ao atualizar usuário (sem tratamento)`, open: true });
             }
@@ -45,12 +47,13 @@ export default function UpdateUserForm({ user }) {
         }
     };
 
-    const deleteFunction = async (user) => {
+    const deleteFunction = async (user: User) => {
         try {
             const result = await deleteUser(user.id);
 
             if (result) {
                 setAlert({ severity: 'error', message: 'Usuário deletado com sucesso!', open: true });
+                //Adicionar popup?
                 setTimeout(() => {
                     router.push('/usuarios/');
                 }, 2500);
@@ -77,15 +80,15 @@ export default function UpdateUserForm({ user }) {
                     <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
                         <Field name="nome">
                             {({ input, meta }) => (
-                            <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
-                                <InputLabel htmlFor='standard-name'>Nome</InputLabel>
-                                <Input
-                                {...input}
-                                id="standard-name"
-                                type='text'
-                                />
-                                {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
-                            </FormControl>
+                                <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
+                                    <InputLabel htmlFor='standard-name'>Nome</InputLabel>
+                                    <Input
+                                        {...input}
+                                        id="standard-name"
+                                        type='text'
+                                    />
+                                    {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
+                                </FormControl>
                             )}
                         </Field>
                         <Field name="senha">
@@ -126,15 +129,15 @@ export default function UpdateUserForm({ user }) {
                         </Field>
                         <Field name="nomeMae">
                             {({ input, meta }) => (
-                            <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
-                            <InputLabel htmlFor='standard-mother-name'>Nome da Mãe</InputLabel>
-                            <Input
-                                {...input}
-                                id="standard-mother-name"
-                                type='text'
-                            />
-                            {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
-                            </FormControl>
+                                <FormControl variant="standard" fullWidth className='md:min-w-80' error={meta.touched && meta.error}>
+                                    <InputLabel htmlFor='standard-mother-name'>Nome da Mãe</InputLabel>
+                                    <Input
+                                        {...input}
+                                        id="standard-mother-name"
+                                        type='text'
+                                    />
+                                    {meta.touched && meta.error && <span className='text-error text-xs'>{meta.error}</span>}
+                                </FormControl>
                             )}
                         </Field>
                         <Button variant="contained" className="bg-pri w-full hover:shadow-lg hover:bg-pri hover:shadow-pri hover:animate-pulse hover:scale-110" type="submit">

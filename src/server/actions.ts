@@ -1,7 +1,8 @@
 "use server"
 
-import prisma from "@/lib/db"
-import { revalidatePath } from "next/cache"
+import prisma from "@/lib/db";
+import { revalidatePath } from "next/cache";
+import { UserFormValues } from "@/lib/interfaces";
 
 export async function createUser(formData: FormData) {
     // importante -> Verificar se a validação é a forma correta!
@@ -12,19 +13,20 @@ export async function createUser(formData: FormData) {
         // });
         
         // Criação do usuário no banco de dados
+        const data: UserFormValues = {
+            nome: formData.get("nome") as string,
+            senha: formData.get("senha") as string,
+            dataNascimento: new Date(formData.get("dataNascimento") as string),
+            nomeMae: formData.get("nomeMae") as string,
+        };
+
         const createdUser = await prisma.user.create({
-            data: {
-                nome: formData.get("nome") as string,
-                senha: formData.get("senha") as string,
-                dataNascimento: new Date(formData.get("dataNascimento") as string),
-                nomeMae: formData.get("nomeMae") as string,
-            },
+            data,
         });
 
-        // Altera os usuários na lista
+        //atualiza a lista de usuários
         revalidatePath("/usuarios");
 
-        // console.log(createdUser)
         return createdUser.id;
     } catch (error) {
         console.error("Erro ao criar usuário:", error);
@@ -34,17 +36,19 @@ export async function createUser(formData: FormData) {
 
 export async function updateUser(formData: FormData) {
     try {
-        const id = Number(formData.get('id')); // Obtendo e convertendo o ID para número
-        console.log("Atualizando usuário com ID:", id); // Adicione este log para depuração
+        const id = Number(formData.get('id'));
+        console.log("Atualizando usuário com ID:", id);
+
+        const data: UserFormValues = {
+            nome: formData.get("nome") as string,
+            senha: formData.get("senha") as string,
+            dataNascimento: new Date(formData.get("dataNascimento") as string),
+            nomeMae: formData.get("nomeMae") as string,
+        };
 
         const updatedUser = await prisma.user.update({
             where: { id: id },
-            data: {
-                nome: formData.get("nome") as string,
-                senha: formData.get("senha") as string,
-                dataNascimento: new Date(formData.get("dataNascimento") as string),
-                nomeMae: formData.get("nomeMae") as string,
-            },
+            data,
         });
 
         revalidatePath(`/usuarios/${updatedUser.id}`);

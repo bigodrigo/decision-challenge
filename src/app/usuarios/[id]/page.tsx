@@ -1,23 +1,29 @@
-// usuarios/[id]/page.tsx
 import prisma from '@/lib/db';
+import { User } from '@/lib/interfaces';
 import { redirect } from 'next/navigation';
-import UpdateUserForm from './UpdateUserForm'; // Importar o componente do formulário
+import UpdateUserForm from './UpdateUserForm';
 
-export default async function Usuario({ params }) {
-    const user = await prisma.user.findUnique({
-        where: {
-            id: Number(params.id)
-        }
-    });
+interface Params {
+  params: {
+    id: string;
+  };
+}
 
-    if (!user) {
-        return redirect('/usuarios'); // Redirecionar se o usuário não for encontrado
-    }
+export default async function Usuario({ params }: Params) {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: Number(params.id),
+    },
+  });
 
-    return (
-        <main className="flex flex-col items-center justify-start py-4 px-4">
-            <h1 className='text-lg mb-2 md:text-3xl text-sec'>Edição do Usuário</h1>
-            <UpdateUserForm user={user} />
-        </main>
-    );
+  if (!user) {
+    return redirect('/usuarios'); // Redirecionar se o usuário não for encontrado
+  }
+
+  return (
+    <main className="flex flex-col items-center justify-start py-4 px-4">
+      <h1 className='text-lg mb-2 md:text-3xl text-sec'>Edição do Usuário</h1>
+      <UpdateUserForm user={user as User} />
+    </main>
+  );
 }
