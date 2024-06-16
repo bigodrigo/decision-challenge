@@ -148,9 +148,9 @@ return new Promise((_, reject) => {
 
 ### :muscle: Melhorias:
 
+- [x] Vercel;
+- [x] Docker;
 - [ ] Adicionar um Modal ou Popup que peça a confirmação na hora de deletar um usuário;
-- [ ] Docker;
-- [ ] Vercel;
 - [ ] Criar um Script que verifica se a data de nascimento corresponde a um adulto (>18anos);
 - [ ] Separar as funções de Edição e Deletar -> Principios de SOLID;
 
