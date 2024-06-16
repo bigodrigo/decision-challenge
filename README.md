@@ -54,11 +54,11 @@ Desenvolver um sistema de cadastro de usuários com frontend obrigatório e back
 
 ### Sobre
 
-- O projeto possui 4 rotas básicas, uma Home Page, uma rota para Criar, outra para Editar e uma Lista de todos os usuários. Fiz a escolhe de manter a identidade visual da empresa, reproduzindo, dentro do possível, as mesmas cores, layouts como footer e animações de hover. Os layouts são responsivos para os tamanhos de um celular (320px), um tablet (768px) e uma página web (1024px).
+- O projeto possui 4 rotas básicas, uma Home Page, uma rota para Criar, outra para Editar e uma Lista de todos os usuários. Fiz a escolha de manter a identidade visual da empresa, reproduzindo, dentro do possível, as mesmas cores, layouts como footer e animações de hover. Os layouts são responsivos para os tamanhos de um celular (320px), um tablet (768px) e uma página web (1024px).
 
 - Para garantir a persistencia dos dados, utilizei o Prisma que permite a flexibilidade de lidar com diversos Bancos de dados, neste projeto exite um arquivo SQLite contendo uma estrutura básica e alguns dados. Além disto um arquivo seed permite a rápida configuração de alguns usuários para testagem. 
 
-- Como senha e nome da mãe são informações sensíveis, optei por adicionar o mecanismo de criptografia (hash) somente para a senha que é guardada no banco de dados.
+- Como senha e nome da mãe são informações sensíveis, optei por adicionar o mecanismo de criptografia (hash) somente para a senha que é guardada no banco de dados e não permitir a sua edição.
 
 ### Guia Rápido
 
