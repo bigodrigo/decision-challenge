@@ -67,9 +67,15 @@ Desenvolver um sistema de cadastro de usuários com frontend obrigatório e back
 ```bash
 npm i
 ```
-- Pode ser necessário criar o arquivo local '.env' e adicionar o caminho para o Arquivo do Banco de dados: DATABASE_URL="file:./dev.db"
+
+- Pode ser necessário criar o arquivo local '.env' e adicionar o caminho para o Arquivo do Banco de dados:
+
+```
+DATABASE_URL="file:./dev.db"
+```
 
 - Depois disto, basta executar o servidor e navegar entre as páginas:
+
 ```bash
 npm run dev
 # or
@@ -79,6 +85,7 @@ yarn dev
 - Abra [http://localhost:3000](http://localhost:3000) e navegue, por exemplo pela página de [Criação](http://localhost:3000/usuarios/criar) ou [Lista](http://localhost:3000/usuarios).
 
 - A adição do Prisma permite reconfigurar a tabela de dados, utilizando os comandos:
+
 ```bash
 npx prisma migrate reset --force
 
