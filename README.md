@@ -139,10 +139,10 @@ return new Promise((_, reject) => {
     <img src="./src/design/criar.png">
 </div>
 
-<p>Lista de Usuários e Edição (Mobile):</p>
 <div align="center">
-    <img src="./src/design/edição-mobile.png">
+    <p>Lista de Usuários e Edição (Mobile):</p>
     <img src="./src/design/lista-mobile.png">
+    <img src="./src/design/edição-mobile.png">
 </div>
 
 
